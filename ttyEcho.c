@@ -1,7 +1,10 @@
 /**
  * ttyEcho - Send a command from a console to another one
  *
+ * @author  Andrea Benini (andreabenini@gmail.com)
  * @history
+ *     v1.0.1  (2016/11)
+ *          Trimmed out trailing space on sent command, minor code cleanup
  *     v1.0.0  (2016/10)
  *          First working version
  */
@@ -31,11 +34,11 @@ void print_help(char *prog_name) {
  * MAIN - Main program
  * @param  argc (int) Number of arguments passed
  * @param  argv (char *[]) Array of arguments
- * 
+ *
  * @return (int) 0 when OK, !=0 otherwise
  */
 int main(int argc, char *argv[]) {
-    char *cmd, *nl = "\n";
+    char *cmd;
     int i, fd;
     int devno, commandno, newline;
     int mem_len;
@@ -44,7 +47,9 @@ int main(int argc, char *argv[]) {
         print_help(argv[0]);
     }
     if (argc > 3 && argv[1][0] == '-' && argv[1][1] == 'n') {
-        devno = 2; commandno = 3; newline=1;
+        devno = 2;
+        commandno = 3;
+        newline=1;
     } else if (argc > 3 && argv[1][0] == '-' && argv[1][1] != 'n') {
         printf("Invalid Option\n");
         print_help(argv[0]);
@@ -59,11 +64,10 @@ int main(int argc, char *argv[]) {
         mem_len += strlen(argv[i]) + 2;
         if ( i > commandno ) {
             cmd = (char *)realloc((void *)cmd, mem_len);
-        } else { //i == commandno
+        } else {
             cmd = (char *)malloc(mem_len);
         }
         strcat(cmd, argv[i]);
-        strcat(cmd, " ");
     }
     if (newline == 0) {
         usleep(225000);
@@ -72,7 +76,7 @@ int main(int argc, char *argv[]) {
         ioctl(fd, TIOCSTI, cmd+i);
     }
     if (newline == 1) {
-        ioctl(fd, TIOCSTI, nl);
+        ioctl(fd, TIOCSTI, "\n");
     }
     close(fd);
     free((void *)cmd);
