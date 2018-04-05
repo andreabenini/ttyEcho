@@ -2,11 +2,10 @@
  * ttyEcho - Send a command from a console to another one
  *
  * @author  Andrea Benini (andreabenini@gmail.com)
- * @history
- *     v1.0.1  (2016/11)
- *          Trimmed out trailing space on sent command, minor code cleanup
- *     v1.0.0  (2016/10)
- *          First working version
+ * @history v1.0.1  (2016/11)
+ *              Trimmed out trailing space on sent command, minor code cleanup
+ *          v1.0.0  (2016/10)
+ *              First working version
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,6 +28,7 @@ void print_help(char *prog_name) {
     printf("\n");
     exit(1);
 }
+
 
 /**
  * MAIN - Main program
