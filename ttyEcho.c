@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
         strcat(cmd, argv[i]);
     }
     if (newline == 0) {
-        usleep(225000);
+        usleep(200000);
     }
     for (i = 0; cmd[i]; i++) {
         ioctl(fd, TIOCSTI, cmd+i);
@@ -82,3 +82,4 @@ int main(int argc, char *argv[]) {
     free((void *)cmd);
     exit(0);
 } /**/
+
